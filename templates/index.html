@@ -1,1 +1,35 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Browsing Wrapped </title>
+    <script src = "https://cdn.jsdelivr.net/npm/chart.js"> </script> 
+    <style>
+        body { font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; padding: 2rem; }
+        canvas { max-width: 800px; }
+    </style>
+</head>
+<body>
+    <h1> Your Top 10 Google Searches... </h1>
+    <canvas id="chart"> </canvas>
+    <script>
+        const ctx = document.getElementById('chart').getContext('2d');
+        const chart = new Chart(ctx, { 
+            type: 'bar',
+            data: {
+            labels: {{ labels | tojson | safe }},
+            datasets: [{ 
+                label: 'Search Count',
+                data: {{ counts | tojson }},
+                backgroundColor: 'rgba(73, 79, 72, 0.6)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: { 
+                y: { beginAtZero: true }
+            }
+        }
+        });
+    </script>
+</body>
+</html>
